@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <!-- Statistik -->
+
+
+            <!-- Daftar Pesanan -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>Daftar Pesanan</h4>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 col-xl-2" *ngFor="let stat of [
+                                { icon: 'mdi-cart-outline', color: 'text-primary', count: totalOrder, label: 'Total Order' },
+                                { icon: 'mdi-coin', color: 'text-success', count: blmDibayar, label: 'Belum Dibayar' },
+                                { icon: 'mdi-currency-usd', color: 'text-warning', count: sudahDibayar, label: 'Sudah Dibayar' },
+                                { icon: 'mdi-gift', color: 'text-info', count: menyiapkanProduk, label: 'Menyiapkan Produk' },
+                                { icon: 'mdi-airplane-takeoff', color: 'text-danger', count: produkDikirim, label: 'Produk Dikirim' },
+                                { icon: 'mdi-home', color: 'text-success', count: diterima, label: 'Produk Diterima' }
+                            ]">
+                                <div class="mini-stat bg-white">
+                                    <span class="font-40 {{ stat.color }} float-right"><i
+                                            class="mdi {{ stat.icon }}"></i></span>
+                                    <div class="mini-stat-info">
+                                        <h3 class="counter">{{ stat.count | number }}</h3>
+                                    </div>
+                                    <p class="mb-0 mt-2 text-muted">{{ stat.label }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Penerima</th>
+                                        <th>Tanggal Order</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let order of orders; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ order.nm_penerima }}</td>
+                                        <td>{{ order.tgl_order | date: 'dd/MM/yyyy' }}</td>
+                                        <td>
+                                            <span class="badge" [ngClass]="{
+                                                'badge-warning': order.status === 'Belum Dibayar',
+                                                'badge-secondary': order.status === 'Sudah Dibayar',
+                                                'badge-info': order.status === 'Menyiapkan Produk',
+                                                'badge-danger': order.status === 'Produk Dikirim',
+                                                'badge-success': order.status === 'Produk Diterima'
+                                            }">
+                                                {{ order.status }}
+                                            </span>
+                                        </td>
+                                        <td>Rp. {{ order.total_order | number }}</td>
+                                        <td>
+                                            <button class="btn btn-light btn-sm"
+                                                (click)="goToOrderDetail(order.id_order)">
+                                                <i class="mdi mdi-buffer font-18"></i> Detail
+                                            </button>
+                                            <button *ngIf="order.status === 'Sudah Dibayar'"
+                                                (click)="goToPaymentDetail(order.id_order)"
+                                                class="btn btn-secondary btn-sm">
+                                                Lihat Pembayaran
+                                            </button>
+                                            <button *ngIf="order.status === 'Menyiapkan Produk'"
+                                                (click)="goToEditOrder(order.id_order)" class="btn btn-info btn-sm">
+                                                Edit Orderan
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

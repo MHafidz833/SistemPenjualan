@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Daftar Artikel</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Tombol Tambah Produk di pojok kanan -->
+                    <div class="d-flex justify-content-end mb-3">
+                        <a (click)="onCategory()" class="btn btn-danger text-white btn-sm">
+                            <i class="mdi mdi-plus"></i> Tambah Kategori
+                        </a>
+                        <a (click)="onTambahpos()" class="btn btn-danger text-white btn-sm">
+                            <i class="mdi mdi-plus"></i> Tambah Artikel
+                        </a>
+                    </div>
+
+                    <!-- Tabel Produk -->
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Judul</th>
+                                <th>Kategori</th>
+                                <th>Tgl Terbit</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let post of posts; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ post.judul }}</td>
+                                <td>{{ post.nm_kategori }}</td>
+                                <td>{{ post.tgl | date: 'dd/MM/yyyy' }}</td>
+                                <td>
+                                    <a (click)="router.navigate(['/admin/edit-pos', post.id_pos])"
+                                        class="btn btn-warning btn-sm">
+                                        Edit
+                                    </a>
+                                    <button class="btn btn-danger btn-sm" (click)="deletePost(post.id_pos)">
+                                        Hapus
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

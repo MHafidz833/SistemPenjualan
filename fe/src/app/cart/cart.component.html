@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <br><br><br>
+    <div class="bg-white rounded p-4">
+        <div *ngIf="cartItems.length === 0">
+            <script>
+                Swal.fire({
+                    title: 'Keranjang Kosong',
+                    text: 'Silahkan Memilih Produk Dahulu!',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = '/index';
+                });
+            </script>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Hapus</th>
+                    <th>Gambar</th>
+                    <th>Nama Produk</th>
+                    <th>Harga</th>
+                    <th class="text-center">Jumlah</th>
+                    <th>Subharga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartItems">
+                    <td>
+                        <button class="btn btn-danger btn-sm" (click)="removeFromCart(item.id_produk)">
+                            Hapus
+                        </button>
+                    </td>
+                    <td class="product-list-img">
+                        <img *ngIf="item.gambar" src="../../assets/admin/assets/images/foto_produk/{{item.gambar}}"
+                            width="40" class="img-fluid" alt="product">
+                    </td>
+                    <td>{{ item.nm_produk }}</td>
+                    <td>Rp. {{ item.harga | number }}</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td>Rp. {{ (item.subtotal ) }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <a href="/" class="btn btn-secondary">
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i> Lanjut Belanja
+                </a>
+                <button class="btn btn-primary" (click)="checkout()">Checkout >></button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

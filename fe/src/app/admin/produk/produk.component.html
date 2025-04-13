@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Daftar Produk</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Tombol Tambah Produk di pojok kanan -->
+                    <div class="d-flex justify-content-end mb-3">
+                        <a (click)="onCategory()" class="btn btn-danger text-white btn-sm">
+                            <i class="mdi mdi-plus"></i> Tambah Kategori
+                        </a>
+                        <a (click)="onAddProduct()" class="btn btn-danger text-white btn-sm">
+                            <i class="mdi mdi-plus"></i> Tambah Produk
+                        </a>
+                    </div>
+
+                    <!-- Tabel Produk -->
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Image</th>
+                                <th>Nama Produk</th>
+                                <th>Berat (Kg)</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of productList; let i = index">
+                                <td class="product-list-img">
+                                    <img *ngIf="product.gambar" width="200"
+                                        [src]="'../../../assets/admin/assets/images/foto_produk/' + product.gambar"
+                                        class="img-fluid" alt="Product Image">
+                                </td>
+                                <td>
+                                    <h6 class="mt-0 mb-5">{{ product.nm_produk }}</h6>
+                                </td>
+                                <td>{{ product.berat }} Kg</td>
+                                <td>Rp. {{ product.harga | number }}</td>
+                                <td>{{ product.stok }}</td>
+                                <td>
+                                    <a (click)="router.navigate(['/admin/edit-product', product.id_produk])"
+                                        class="btn btn-warning btn-sm">
+                                        <i class="mdi mdi-pencil"></i> Edit
+                                    </a>
+                                    <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id_produk)">
+                                        <i class="mdi mdi-close"></i> Hapus
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div class="contain">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="judul">
+                    <h2>{{ article.judul }}</h2>
+                </div>
+                <hr width="20%" align="left">
+                <div class="sub mb-3">
+                    Penulis: <span class="text-primary">Admin</span> |
+                    <i class="fa fa-calendar"></i>
+                    {{ article.tgl | date: 'MMMM d, y' }}
+                </div>
+                <div class="gambar mb-4">
+                    <img src="../../assets/admin/assets/images/foto_pos/{{ article.gambar }}" alt="Gambar Artikel"
+                        width="100%" height="430px">
+                </div>
+                <div class="isi text-justify" [innerHTML]="article.isi"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

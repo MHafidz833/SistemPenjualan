@@ -1,0 +1,42 @@
+<div class="app-container">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Daftar Pelanggan</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped dt-responsive nowrap">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pelanggan of pelangganList; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ pelanggan.nm_pelanggan }}</td>
+                                <td>{{ pelanggan.username }}</td>
+                                <td>{{ pelanggan.email }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" (click)="deletePelanggan(pelanggan.id_pelanggan)">
+                                        <i class="mdi mdi-close"></i> Hapus
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

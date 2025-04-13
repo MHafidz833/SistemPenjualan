@@ -1,0 +1,57 @@
+/* Sidebar */
+app-sidebar {
+    width: 4.7cm;
+    min-width: 4.7cm;
+    background-color: #f8f9fa;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+/* Konten Utama */
+.main-content {
+    margin-left: 4.7cm;
+    /* Geser konten ke kanan 7cm */
+    padding: 20px;
+    width: calc(100% - 4.7cm);
+    /* Sisakan ruang untuk sidebar */
+}
+
+/* Tabel */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Tambahkan bayangan */
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Tombol */
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin: 7px;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}

@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div class="container bg-white rounded pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="isLoading" class="text-center">
+                <p>Loading...</p>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
+
+            <table *ngIf="productList.length > 0" class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Gambar</th>
+                        <th>Nama</th>
+                        <th class="text-center">Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of productList">
+                        <td>{{ product.no }}</td>
+                        <td class="product-list-img">
+                            <img *ngIf="product.gambar" [src]="product.gambar" width="40" class="img-fluid"
+                                alt="Produk">
+                        </td>
+                        <td>{{ product.nama_produk }}</td>
+                        <td class="text-center">{{ product.jumlah }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

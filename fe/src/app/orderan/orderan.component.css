@@ -1,0 +1,36 @@
+/* Style tombol agar ada jarak antar tombol */
+.table .btn {
+    margin-right: 5px; /* Jarak antar tombol */
+    margin-bottom: 5px; /* Kalau di mobile atau layar kecil, biar ga terlalu mepet */
+}
+
+/* Bisa tambahkan padding biar kelihatan lebih proporsional */
+.btn-konfirmasi {
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-konfirmasi:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-nota {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-nota:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}

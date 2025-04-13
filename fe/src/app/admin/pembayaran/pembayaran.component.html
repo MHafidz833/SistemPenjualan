@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <!-- Bagian Kiri: Detail Pembayaran -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <app-sidebar></app-sidebar>
+                    <h5>Detail Pembayaran</h5>
+                    <div *ngIf="paymentDetails">
+                        <label>Bukti Transfer</label><br>
+                        <img [src]="'../../../assets/img/bukti-transfer/' + paymentDetails.bukti_transfer"
+                            alt="Bukti Transfer" class="img-fluid" style="max-width: 200px;" /><br><br>
+
+                        <table class="table">
+                            <tr>
+                                <th>Nama Pembayar</th>
+                                <td>{{ paymentDetails.nm_pembayar }}</td>
+                            </tr>
+                            <tr>
+                                <th>Bank</th>
+                                <td>{{ paymentDetails.nm_bank }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal</th>
+                                <td>{{ paymentDetails.tgl_bayar }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td>{{ paymentDetails.jml_pembayaran }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+/* Body Background */
+body {
+    background-color: #f6f6f6; /* Warna soft, mata lebih nyaman */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #ffffff;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow lebih soft */
+}
+
+/* Navbar Menu */
+.navbar-nav li {
+    position: relative;
+    z-index: 1;
+}
+
+.navbar-nav li a {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 15px 25px !important;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.navbar-nav li a:hover {
+    border-bottom: 3px solid #0066FF;
+    font-size: 16px;
+    background-color: rgba(0, 102, 255, 0.05); /* Soft hover background */
+    color: #0066FF;
+    transition: all 0.3s ease;
+}
+
+/* Active Link */
+.navbar-light .navbar-nav .nav-item .nav-link {
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.navbar-light .navbar-nav .nav-item .nav-link.active {
+    color: #0066FF;
+    font-weight: bold;
+}
+
+/* Navbar Toggler (Mobile) */
+.navbar-toggler {
+    margin: 10px 15px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus {
+    background-color: rgba(0, 102, 255, 0.1);
+}
+
+/* Mobile Menu Background */
+@media (max-width: 992px) {
+    .navbar-light {
+        background-color: #ffffff;
+    }
+
+    .navbar-nav li a {
+        text-align: center;
+        background-color: #fff;
+        color: #333;
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar-nav li a:hover {
+        background-color: #0066FF;
+        color: #fff;
+    }
+}
+
+/* Mobile (Small Devices) */
+@media (max-width: 576px) {
+    .navbar-nav li {
+        font-size: 14px;
+    }
+
+    .navbar-nav li a {
+        padding: 12px 15px !important;
+    }
+
+    .navbar-toggler {
+        margin: 5px 10px;
+    }
+}

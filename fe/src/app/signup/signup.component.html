@@ -1,0 +1,49 @@
+<div class="signup-form">
+    <form (ngSubmit)="signup()">
+        <h2>Sign Up</h2>
+        <p>Silakan isi data berikut untuk mendaftar.</p>
+        <hr>
+
+        <!-- Nama Lengkap -->
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control" placeholder="Nama Lengkap" [(ngModel)]="nama" name="nama" required>
+            </div>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                <input type="text" class="form-control" placeholder="Username" [(ngModel)]="username" name="username" required>
+            </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+                <input type="email" class="form-control" placeholder="Email Address" [(ngModel)]="email" name="email" required>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password" required>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+        </div>
+
+        <!-- Already have account? -->
+        <div class="text-center down">
+            <label>Sudah punya akun? <a href="/login">Login di sini</a></label>
+        </div>
+    </form>
+</div>

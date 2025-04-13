@@ -1,0 +1,61 @@
+/* Grid Row Reset */
+.row {
+    margin: 0;
+}
+
+.row > [class^="col-"] {
+    padding: 5px;
+}
+
+/* Container Utama */
+#containt {
+    margin-top: 80px;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.star-rating i {
+    font-size: 17px;
+    color: #ffc000;
+}
+
+/* Deskripsi Box */
+.dec {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    word-wrap: break-word; /* Memastikan teks panjang terbungkus */
+    overflow-y: auto; /* Scroll vertikal untuk teks panjang */
+    text-overflow: ellipsis;
+    max-height: 300px; /* Membatasi tinggi deskripsi jika diperlukan */
+}
+
+.dec:hover {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #containt {
+        margin-top: 50px;
+    }
+    .star-rating i {
+        font-size: 15px;
+    }
+    .dec {
+        font-size: 13px;
+        padding: 8px;
+    }
+}

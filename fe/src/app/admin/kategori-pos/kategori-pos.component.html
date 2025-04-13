@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Kelola Kategori</h4>
+                </div>
+                <div class="card-body">
+                    <form (submit)="addCategory(); $event.preventDefault()">
+                        <div class="form-group">
+                            <label for="categoryName">Nama Kategori</label>
+                            <input id="categoryName" [(ngModel)]="newCategory" name="name" class="form-control"
+                                placeholder="Masukkan kategori baru" required />
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">Tambah</button>
+                    </form>
+                    <table class="table table-bordered mt-4">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Kategori</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categories; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ category.nm_kategori }}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm"
+                                        (click)="deleteCategory(category.id_kategori)">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

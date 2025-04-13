@@ -1,0 +1,70 @@
+/* Sidebar */
+app-sidebar {
+    width: 4.7cm;
+    min-width: 4.7cm;
+    background-color: #f8f9fa;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+/* Konten Utama */
+.main-content {
+    margin-left: 4.7cm;
+    /* Geser konten utama ke kanan 7cm */
+    padding: 20px;
+    width: calc(100% - 4.7cm);
+    /* Sisakan ruang untuk sidebar */
+}
+
+/* Mini Statistik */
+.mini-stat {
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.mini-stat .icon {
+    font-size: 40px;
+    display: block;
+}
+
+.mini-stat .info span {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.mini-stat .info h4 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Warna Statistik */
+.bg-orange {
+    background-color: #fd7e14;
+}
+
+.bg-primary {
+    background-color: #007bff;
+}
+
+.bg-success {
+    background-color: #28a745;
+}
+
+.bg-purple {
+    background-color: #6f42c1;
+}
+
+/* Grafik */
+.stok .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}

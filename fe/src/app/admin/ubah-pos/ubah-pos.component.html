@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Edit Artikel</h4>
+                </div>
+                <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <!-- Form Utama -->
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Judul</label>
+                                        <input type="text" class="form-control" formControlName="judul" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Isi Artikel</label>
+                                        <textarea class="form-control" rows="5" formControlName="isi"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Kategori</label>
+                                        <select class="form-control" formControlName="kategori" required>
+                                            <option value="">Pilih Kategori</option>
+                                            <option *ngFor="let cat of categories" [value]="cat.id_kategori">
+                                                {{ cat.nm_kategori }}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Ganti Gambar</label>
+                                        <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                                        <img *ngIf="imagePreview" [src]="imagePreview" class="img-fluid mt-2"
+                                            style="max-height: 125px;" />
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success mt-3">Ubah Pos</button>
+                                    <a href="/admin/pos" class="btn btn-secondary">Kembali</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+/* Sidebar */
+app-sidebar {
+    width: 4.7cm;
+    min-width: 4.7cm;
+    background-color: #f8f9fa;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+/* Konten Utama */
+.main-content {
+    margin-left: 4.7cm; /* Geser konten utama ke kanan 7cm */
+    padding: 20px;
+    width: calc(100% - 4.7cm); /* Sisakan ruang untuk sidebar */
+}
+
+/* Mini Statistik */
+.mini-stat {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.font-40 {
+    font-size: 40px;
+}
+
+/* Tabel */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 15px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Badge */
+.badge {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+/* Tombol */
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    margin:7px;
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+}

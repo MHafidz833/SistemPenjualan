@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<br><br><br>
+<div class="container">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-12 col-lg-4 col-xl-3">
+            <div class="card pb-3">
+                <div class="card-body">
+                    <hr class="text-center" width="80%">
+                    <h5>Kategori:</h5>
+                    <a *ngFor="let category of categories" href="#" class="text-secondary ml-3"
+                        (click)="onSelectCategory(category.id_kategori)">
+                        {{ category.nm_kategori }}
+                    </a><br>
+                </div>
+            </div>
+        </div>
+        <!-- Product List -->
+        <div class="col-md-12 col-lg-8 col-xl-9">
+            <div class="row">
+                <div *ngFor="let produk of products" class="mb-0 p-1 col-md-6 col-lg-4 col-xl-3">
+                    <div class="item card">
+                        <div class="thumbnail">
+                            <img src="../../assets/admin/assets/images/foto_produk/{{ produk.gambar }}" alt="img"
+                                class="card-img-top">
+                            <div class="star-rating">
+                                <ul class="list-inline text-warning">
+                                    <li class="list-inline-item m-0"
+                                        *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                                        <i class="fa" [ngClass]="i < 4 ? 'fa-star' : 'fa-star-o'"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <strong>{{ produk.nm_produk }}</strong>
+                            <h6 class="text-danger">Rp. {{ produk.harga }}</h6>
+                            <!-- Perbaikan routerLink -->
+                            <a [href]="'product/' + produk.id_produk" class="btn btn-primary btn-sm btn-block mt-auto">
+                                Lihat Produk
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-footer></app-footer>

@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <!-- Bagian Kiri: Detail Pembayaran -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <app-sidebar></app-sidebar>
+                    <h5>Detail Pembayaran</h5>
+                    <div *ngIf="paymentDetails">
+                        <label>Bukti Transfer</label><br>
+                        <img [src]="'../../../assets/img/bukti-transfer/' + paymentDetails.bukti_transfer"
+                            alt="Bukti Transfer" class="img-fluid" style="max-width: 200px;" /><br><br>
+
+                        <table class="table">
+                            <tr>
+                                <th>Nama Pembayar</th>
+                                <td>{{ paymentDetails.nm_pembayar }}</td>
+                            </tr>
+                            <tr>
+                                <th>Bank</th>
+                                <td>{{ paymentDetails.nm_bank }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tanggal</th>
+                                <td>{{ paymentDetails.tgl_bayar }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td>{{ paymentDetails.jml_pembayaran }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian Kanan: Form Ubah Status -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Ubah Status Pesanan</h5>
+                    <form (submit)="updateOrderStatus()">
+                        <div class="form-group">
+                            <label>Ubah Status</label>
+                            <select class="form-control" [(ngModel)]="status" name="status">
+                                <option value="">- Pilih Status -</option>
+                                <option *ngFor="let s of statusList" [value]="s">{{ s }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Masukkan Resi Pengiriman</label>
+                            <input type="text" class="form-control" [(ngModel)]="resi" name="resi"
+                                placeholder="Masukkan Nomor Resi" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">
+                            Perbarui Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

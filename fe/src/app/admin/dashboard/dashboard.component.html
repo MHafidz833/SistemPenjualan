@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <!-- Statistik -->
+            <div class="row">
+                <div class="col-md-6 col-xl-3" *ngFor="let stat of [
+                    { icon: 'mdi-cart-outline', color: 'bg-orange', label: 'Total Pendapatan', value: totalPendapatan.toLocaleString('id-ID'), suffix: 'Rp.' },
+                    { icon: 'mdi-account-multiple', color: 'bg-primary', label: 'Total Member', value: totalMember.toLocaleString('id-ID'), suffix: 'Orang' },
+                    { icon: 'mdi-gift', color: 'bg-success', label: 'Total Produk', value: totalProduk.toLocaleString('id-ID'), suffix: 'Unit' },
+                    { icon: 'mdi-lead-pencil', color: 'bg-purple', label: 'Total Artikel', value: totalArtikel.toLocaleString('id-ID'), suffix: 'Artikel' }
+                ]">
+                    <div class="mini-stat {{ stat.color }}">
+                        <span class="icon"><i class="mdi {{ stat.icon }}"></i></span>
+                        <div class="info">
+                            <span>{{ stat.label }}</span>
+                            <h4>{{ stat.suffix }} {{ stat.value }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik -->
+            <div class="stok mt-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Grafik Stok Produk</h4>
+                    </div>
+                    <div class="card-body">
+                        <div style="width: 100%; height: 500px;">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

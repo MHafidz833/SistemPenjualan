@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div>
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Konten Utama -->
+        <div class="main-content">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Tambah Produk</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+                        <div class="form-group">
+                            <label>Nama Produk:</label>
+                            <input type="text" formControlName="nama" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategori:</label>
+                            <select formControlName="id_kategori" class="form-control" required>
+                                <option value="">Pilih Kategori</option>
+                                <option *ngFor="let kat of categories" [value]="kat.id">{{ kat.name }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Berat (kg):</label>
+                            <input type="number" formControlName="berat" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Harga:</label>
+                            <input type="number" formControlName="harga" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stok:</label>
+                            <input type="number" formControlName="stok" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deskripsi:</label>
+                            <textarea formControlName="deskripsi" class="form-control" required></textarea>
+                        </div>
+
+                        <!-- Preview Gambar -->
+                        <div class="form-group">
+                            <label>Gambar Produk:</label><br>
+                            <img *ngIf="previewImage" [src]="previewImage" alt="Preview Image" class="img-thumbnail" width="200">
+                        </div>
+
+                        <!-- Input Upload Gambar -->
+                        <div class="form-group">
+                            <label>Upload Gambar:</label>
+                            <input type="file" (change)="onFileSelected($event)" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-success mt-3">Tambah Produk</button>
+                        <a routerLink="/products" class="btn btn-secondary mt-3">Batal</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

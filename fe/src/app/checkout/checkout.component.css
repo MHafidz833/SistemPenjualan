@@ -1,0 +1,45 @@
+app-navbar {
+  display: block; /* Memastikan navbar tampil sebagai elemen block */
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.banner {
+  margin-top: 50px; /* Jarak dari navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner .img {
+  width: 100%;
+  max-width: 1200px;
+  height:10px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.banner .img:hover {
+  transform: translateY(-5px);
+}
+
+.img .box {
+  text-align: center;
+  color: white;
+  padding: 1rem;
+}
+
+.box h3 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}

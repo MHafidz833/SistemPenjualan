@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<br><br><br>
+<div class="container bg-white rounded pb-4 pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Jumlah</th>
+                            <th class="text-center">Status</th>
+                            <th>Total Harga</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ order.tanggal }}</td>
+                            <td>
+                                {{ order.jumlah_produk }} Produk
+                            </td>
+                            <td class="text-center">
+                                <span [class]="getBadgeClass(order.status)">{{ order.status }}</span>
+                                <div *ngIf="order.status === 'Produk Dikirim'" style="font-size: small;">
+                                    Resi: {{ order.no_resi }} (Pos Indonesia)
+                                </div>
+                            </td>
+                            <td>Rp. {{ order.total_harga }}</td>
+                            <td class="text-left">
+                                <a *ngIf="order.status === 'Belum Dibayar'"
+                                    [href]="'konfirmasi-pembayaran/' + order.id_order" class="btn btn-warning btn-sm">
+                                    Konfirmasi Pembayaran
+                                </a>
+                                <a *ngIf="['Sudah Dibayar', 'Menyiapkan Produk', 'Produk Dikirim', 'Produk Diterima'].includes(order.status)"
+                                    [href]="'nota-order/' + order.id_order" class="btn btn-secondary btn-sm">
+                                    Nota
+                                </a>
+                                <button *ngIf="order.status === 'Produk Dikirim'" class="btn btn-danger btn-sm"
+                                    (click)="konfirmasiDiterima(order.id_order)">
+                                    Pesanan Diterima
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,93 @@
+/* Styling untuk banner */
+.banner .img {
+    width: 100%;
+    height: 300px;
+    background-image: url('../../assets/img/4.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Overlay pada banner */
+.banner .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Styling artikel */
+.contain {
+    padding: 40px 15px;
+}
+
+.judul h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+.sub {
+    font-size: 14px;
+    color: #666;
+}
+
+.gambar img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.isi {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    text-align: justify;
+}
+
+/* Styling sosial media */
+.sosmed {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 0;
+    flex-wrap: wrap;
+}
+
+.sosmed-items {
+    color: #fff;
+    width: 80px;
+    height: 80px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sosmed-items:hover {
+    background-color: black;
+    transform: scale(1.1);
+}
+
+/* Warna sosial media */
+.bg1 { background-color: #3b5998; }
+.bg1:hover { background-color: white; color: #3b5998; }
+
+.bg2 { background-color: #1da1f2; }
+.bg2:hover { background-color: white; color: #1da1f2; }
+
+.bg3 { background-color: #ea4335; }
+.bg3:hover { background-color: white; color: #ea4335; }

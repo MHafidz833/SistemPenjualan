@@ -1,0 +1,46 @@
+/* Sidebar */
+app-sidebar {
+    width: 4.7cm;
+    min-width: 4.7cm;
+    background-color: #f8f9fa;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+/* Konten Utama */
+.main-content {
+    margin-left: 4.7cm; /* Geser konten ke kanan 7 cm */
+    padding: 20px;
+    width: calc(100% - 4.7cm); /* Sisakan ruang untuk sidebar */
+}
+
+/* Formulir */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Tombol */
+.btn-success {
+    background-color: #28a745;
+    margin:7px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    margin:7px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Gambar Produk */
+.img-thumbnail {
+    border-radius: 5px;
+    object-fit: cover;
+}

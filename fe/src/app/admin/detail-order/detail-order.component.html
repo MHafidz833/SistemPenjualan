@@ -1,0 +1,102 @@
+<div class="container mt-4" *ngIf="!loading; else loadingTemplate">
+    <div class="card">
+        <div class="card-body">
+            <app-sidebar></app-sidebar>
+            <div class="row">
+                <div class="col-9">
+                    <address>
+                        <strong>Pelanggan:</strong><br>
+                        {{ order.pelanggan.nm_pelanggan }}<br>
+                        {{ order.pelanggan.email }}
+                    </address>
+                </div>
+                <div class="col-3 text-right">
+                    <address>
+                        <strong>Alamat Penerima:</strong><br>
+                        {{ order.alamat_penerima.nm_penerima }}<br>
+                        {{ order.alamat_penerima.alamat_pengiriman }}<br>
+                        {{ order.alamat_penerima.kode_pos }}
+                    </address>
+                </div>
+                <div class="col-9">
+                    <address>
+                        <strong>Catatan:</strong><br>
+                        {{ order.catatan || 'Tidak ada catatan' }}
+                    </address>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <address>
+                        <strong>Tanggal Order:</strong><br>
+                        {{ order.tanggal_order }}
+                    </address>
+                </div>
+                <div class="col-6 text-right">
+                    <address>
+                        <strong>Status:</strong><br>
+                        <span class="badge" [ngClass]="getStatusClass(order.status.badge.badge)">
+                            {{ order.status.status }}
+                        </span>
+                        <br *ngIf="order.status.badge.residue">
+                        <span *ngIf="order.status.badge.residue" style="font-size: small;">
+                             {{ order.status.badge.residue }}
+                        </span>
+                    </address>
+                </div>
+            </div>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th class="text-center">Jumlah</th>
+                        <th class="text-right">Subharga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let produk of order.products">
+                        <td>
+                            <img *ngIf="produk.gambar" width="40"
+                                [src]="'assets/admin/assets/images/foto_produk/' + produk.gambar" class="img-fluid"
+                                alt="Produk">
+                        </td>
+                        <td>{{ produk.nm_produk }}</td>
+                        <td>Rp. {{ produk.harga | number }}</td>
+                        <td class="text-center">{{ produk.jml_order }}</td>
+                        <td class="text-right">Rp. {{ produk.subharga | number }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-center"><strong>Subtotal</strong></td>
+                        <td class="text-right">Rp. {{ order.subtotal | number }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-center"><strong>Shipping</strong></td>
+                        <td class="text-right">Rp. {{ order.shipping | number }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-center"><strong>Total</strong></td>
+                        <td class="text-right">
+                            <h4>Rp. {{ order.total_order | number }}</h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="/admin/order" class="btn btn-secondary">Kembali</a>
+            
+        </div>
+    </div>
+</div>
+
+<ng-template #loadingTemplate>
+    <div class="text-center mt-5">
+        <p>Loading data...</p>
+    </div>
+</ng-template>
