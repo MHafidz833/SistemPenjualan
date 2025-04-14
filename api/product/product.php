@@ -3,35 +3,32 @@ include "../koneksi.php";
 
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 $response = [];
 
-try {
-    $qkat = "SELECT * FROM tbl_kat_produk";
-    $reskat = mysqli_query($db, $qkat);
-    if (!$reskat) {
-        throw new Exception("Error fetching categories: " . mysqli_error($db));
-    }
-    $categories = mysqli_fetch_all($reskat, MYSQLI_ASSOC);
-
-    $query = "SELECT * FROM tbl_produk";
-    if (!empty($_GET['kategori'])) {
-        $kategori = mysqli_real_escape_string($db, $_GET['kategori']);
-        $query .= " WHERE id_kategori='$kategori'";
-    } elseif (!empty($_GET['select'])) {
-        $search = mysqli_real_escape_string($db, $_GET['select']);
-        $query .= " WHERE nm_produk LIKE '%$search%'";
-    }
-    $query .= " ORDER BY id_produk ASC";
-
+// Unified function to fetch data
+function fetchData($db, $query) {
     $result = mysqli_query($db, $query);
-    if (!$result) {
-        throw new Exception("Error fetching products: " . mysqli_error($db));
-    }
-    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
 
+// Ambil kategori dari parameter URL
+$kategori = $_GET['kategori'] ?? null;
+
+// Fetch categories
+$categories = fetchData($db, "SELECT * FROM tbl_kat_produk");
+
+// Fetch products dengan kondisi kategori
+$query = "SELECT * FROM tbl_produk";
+if ($kategori) {
+    $query .= " WHERE id_kategori='" . mysqli_real_escape_string($db, $kategori) . "'";
+}
+
+// Cek jika ada produk yang ditemukan
+$products = fetchData($db, $query);
+
+// Menambahkan kondisi percabangan berdasarkan jumlah produk yang ditemukan
+if (count($products) > 0) {
     $response = [
         'status' => 'success',
         'message' => 'Data retrieved successfully',
@@ -46,11 +43,13 @@ try {
             ];
         }, $products)
     ];
-} catch (Exception $e) {
+} else {
+    // Menambahkan percabangan jika produk tidak ditemukan
     $response = [
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => 'No products found'
     ];
 }
 
 echo json_encode($response);
+?>
