@@ -1,49 +1,30 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Mengizinkan akses dari semua domain
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Izinkan metode GET dan POST
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Izinkan header tertentu
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header('Content-Type: application/json');
+
 include "../koneksi.php";
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['u'];
-    $password = $_POST['p'];
-    $ambil = $db->query("SELECT * FROM tbl_pelanggan WHERE username = '$username' AND password = '$password'");
-    $yangcocok = $ambil->num_rows;
+$username = $_POST['u'] ?? '';
+$password = $_POST['p'] ?? '';
 
-    $response = array();
+$result = $db->query("SELECT * FROM tbl_pelanggan WHERE username = '$username' AND password = '$password'");
 
-    if ($yangcocok == 1) {
-        $akun = $ambil->fetch_assoc();
-        $_SESSION['pelanggan'] = $akun;
-        $_SESSION['email'] = $akun['email'];
-
-        $response['status'] = 'success';
-        $response['message'] = 'Anda Berhasil Login';
-        $response['email'] = $akun['email'];
-        $response['pelanggan'] = $akun;
-    } else {
-        $response['status'] = 'error';
-        $response['message'] = 'Username Dan Password Anda Salah';
-    }
-
-    echo json_encode($response);
-} else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_SESSION['pelanggan'])) {
-        echo json_encode([
-            "status" => "success",
-            "message" => "User is logged in",
-            "user" => [
-                "pelanggan" => $_SESSION['pelanggan'],
-                "email" => $_SESSION['email']
-            ]
-        ]);
-    } else {
-        echo json_encode([
-            "status" => "error",
-            "message" => "User is not logged in"
-        ]);
-    }
+if ($result->num_rows === 1) {
+    $response = [
+        'status' => 'success',
+        'message' => 'Anda Berhasil Login',
+        'pelanggan' => $result->fetch_assoc()
+    ];
+} else {
+    $response = [
+        'status' => 'error',
+        'message' => 'Username Dan Password Anda Salah'
+    ];
 }
+
+echo json_encode($response);
+// dipakai
 ?>
