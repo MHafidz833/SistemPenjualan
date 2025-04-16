@@ -69,4 +69,5 @@ echo json_encode($response);
 
 // Menutup koneksi database
 mysqli_close($db);
+//dipakai
 ?>

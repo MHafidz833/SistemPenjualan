@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: http://localhost:4200");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
 session_start(); // Ini WAJIB kalau mau pakai session
 
 require "../../koneksi.php";
@@ -53,7 +56,5 @@ while ($row = mysqli_fetch_assoc($res)) {
 $data['stok_produk'] = $stok;
 
 // Return JSON
-header("Access-Control-Allow-Origin: http://localhost:4200");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
+//dipake
 echo json_encode($data);

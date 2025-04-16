@@ -1,7 +1,7 @@
 <?php
 // Pastikan tidak ada output sebelum session_start
 ini_set('session.cookie_samesite', 'None');
-ini_set('session.cookie_secure', 'true'); // Gunakan hanya jika HTTPS
+ini_set('session.cookie_secure', 'true'); 
 session_start();
 
 header('Content-Type: application/json');
@@ -10,70 +10,29 @@ header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Periksa apakah admin sudah login
+// Periksa login admin
 if (!isset($_SESSION['admin'])) {
-    http_response_code(401);
-    echo json_encode([
-        "status" => "error",
-        "message" => "Unauthorized",
-        "session_id" => session_id()
-    ]);
-    exit;
+    die(json_encode(["status" => "error", "message" => "Unauthorized", "session_id" => session_id()]));
 }
 
 include('../../koneksi.php');
 
-// Fungsi untuk mendapatkan daftar pelanggan
-function getAllCustomers($db)
-{
-    $query = "SELECT * FROM tbl_pelanggan";
-    $result = mysqli_query($db, $query);
-    $customers = [];
-
-    while ($data = mysqli_fetch_assoc($result)) {
-        $customers[] = $data;
+// Fungsi utama: Ambil atau hapus pelanggan
+function manageCustomers($db, $method) {
+    if ($method === 'GET') {
+        $result = mysqli_query($db, "SELECT * FROM tbl_pelanggan");
+        return json_encode(["status" => $result->num_rows ? "success" : "error", "data" => mysqli_fetch_all($result, MYSQLI_ASSOC)]);
     }
 
-    return $customers;
-}
-
-// Fungsi untuk menghapus pelanggan berdasarkan id_pelanggan
-function deleteCustomer($id, $db)
-{
-    $stmt = $db->prepare("DELETE FROM tbl_pelanggan WHERE id_pelanggan = ?");
-    $stmt->bind_param("s", $id);
-    return $stmt->execute();
-}
-
-// GET: Ambil data pelanggan
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $customers = getAllCustomers($db);
-    echo json_encode([
-        'status' => count($customers) > 0 ? 'success' : 'error',
-        'data' => $customers,
-        'message' => count($customers) > 0 ? '' : 'No customers found',
-        'session_id' => session_id() // Debugging
-    ]);
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'] ?? null;
-
-    if ($id) {
+    if ($method === 'POST' && ($id = $_POST['id'] ?? null)) {
         $stmt = $db->prepare("DELETE FROM tbl_pelanggan WHERE id_pelanggan = ?");
         $stmt->bind_param("s", $id);
-        $deleteStatus = $stmt->execute();
-
-        if ($deleteStatus) {
-            echo json_encode(["status" => "success", "message" => "Pelanggan berhasil dihapus"]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "Gagal menghapus pelanggan"]);
-        }
-    } else {
-        echo json_encode(["status" => "error", "message" => "ID pelanggan diperlukan"]);
+        return json_encode(["status" => $stmt->execute() ? "success" : "error", "message" => $stmt->execute() ? "Pelanggan berhasil dihapus" : "Gagal menghapus pelanggan"]);
     }
+
+    return json_encode(["status" => "error", "message" => "Permintaan tidak valid"]);
 }
 
-
-
+echo manageCustomers($db, $_SERVER['REQUEST_METHOD']);
+//dipake
 ?>

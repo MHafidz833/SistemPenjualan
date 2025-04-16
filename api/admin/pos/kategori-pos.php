@@ -1,91 +1,40 @@
 <?php
 include('../../koneksi.php');
 
-
-// Menetapkan header JSON
 header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *"); // Mengizinkan akses dari semua domain
-header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS"); // Izinkan metode GET, POST, DELETE, PUT
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Izinkan header tertentu
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-// Memulai sesi dan menghubungkan ke database
 session_start();
-include('../../koneksi.php');
 
-// Fungsi untuk mendapatkan daftar kategori
-function getAllCategories($db)
+function executeQuery($query, $db, $params = [], $types = "")
 {
-    $query = "SELECT * FROM tbl_kat_pos";
-    $result = mysqli_query($db, $query);
-    $categories = [];
-
-    while ($data = mysqli_fetch_assoc($result)) {
-        $categories[] = $data;
+    $stmt = mysqli_prepare($db, $query);
+    if ($params) {
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
     }
-
-    return $categories;
+    mysqli_stmt_execute($stmt);
+    return $stmt;
 }
 
-// Fungsi untuk menambahkan kategori
-function addCategory($name, $db)
-{
-    $query = "INSERT INTO tbl_kat_pos (nm_kategori) VALUES ('$name')";
-    return mysqli_query($db, $query);
-}
-
-// Fungsi untuk menghapus kategori berdasarkan id_kategori
-function deleteCategory($id, $db)
-{
-    $query = "DELETE FROM tbl_kat_pos WHERE id_kategori='$id'";
-    return mysqli_query($db, $query);
-}
-
-// Mengambil daftar kategori (GET request)
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $categories = getAllCategories($db);
-
+    $result = executeQuery("SELECT * FROM tbl_kat_pos", $db);
+    $data = mysqli_fetch_all(mysqli_stmt_get_result($result), MYSQLI_ASSOC);
+    echo json_encode(['status' => $data ? 'success' : 'error', 'data' => $data ?: [], 'message' => $data ? '' : 'No categories found']);
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $name = $data['nama'] ?? null;
     echo json_encode([
-        'status' => count($categories) > 0 ? 'success' : 'error',
-        'data' => $categories,
-        'message' => count($categories) > 0 ? '' : 'No categories found'
+        'status' => $name && executeQuery("INSERT INTO tbl_kat_pos (nm_kategori) VALUES (?)", $db, [$name], "s") ? 'success' : 'error',
+        'message' => $name ? 'Category added successfully' : 'Category name is required'
+    ]);
+} elseif ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    $id = $_GET['id'] ?? null;
+    echo json_encode([
+        'status' => $id && executeQuery("DELETE FROM tbl_kat_pos WHERE id_kategori=?", $db, [$id], "i") ? 'success' : 'error',
+        'message' => $id ? 'Category deleted successfully' : 'Category ID is required'
     ]);
 }
-
-// Menambahkan kategori baru (POST request)
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    if (isset($data['nama'])) {
-        $name = $data['nama'];
-        $result = addCategory($name, $db);
-
-        echo json_encode([
-            'status' => $result ? 'success' : 'error',
-            'message' => $result ? 'Category added successfully' : 'Failed to add category'
-        ]);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Category name is required'
-        ]);
-    }
-}
-
-// Menghapus kategori (DELETE request)
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-
-    if ($id) {
-        $result = deleteCategory($id, $db);
-
-        echo json_encode([
-            'status' => $result ? 'success' : 'error',
-            'message' => $result ? 'Category deleted successfully' : 'Failed to delete category'
-        ]);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Category ID is required'
-        ]);
-    }
-}
+//dipakai
+?>

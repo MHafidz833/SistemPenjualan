@@ -1,70 +1,40 @@
 <?php
 header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 include('../../koneksi.php');
 
-header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *"); // Mengizinkan akses dari semua domain
-header("Access-Control-Allow-Methods: GET, POST, DELETE,PUT, OPTIONS"); // Izinkan metode GET dan POST
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Izinkan header tertentu
+function executeQuery($db, $query) {
+    return mysqli_query($db, $query);
+}
 
-// Fungsi untuk mengambil data postingan dan kategori
-function getPosts($db)
-{
+function fetchPosts($db) {
     $query = "SELECT p.id_pos, p.judul, k.nm_kategori, p.tgl FROM tbl_pos p JOIN tbl_kat_pos k ON p.id_kategori=k.id_kategori";
-    $result = mysqli_query($db, $query);
+    $result = executeQuery($db, $query);
 
-    $posts = [];
-    while ($data = mysqli_fetch_assoc($result)) {
-        $posts[] = $data;
-    }
-    return $posts;
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-// Fungsi untuk menghapus postingan
-function deletePost($id, $db)
-{
-    $query = "DELETE FROM tbl_pos WHERE id_pos='$id'";
-    return mysqli_query($db, $query);
+function deleteItem($db, $table, $column, $id) {
+    return executeQuery($db, "DELETE FROM $table WHERE $column='$id'");
 }
 
-// Fungsi untuk menghapus kategori
-function deleteCategory($id, $db)
-{
-    $query = "DELETE FROM tbl_kat_pos WHERE id_kategori='$id'";
-    return mysqli_query($db, $query);
+$response = ['status' => 'error', 'message' => 'Invalid request'];
+
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        $posts = fetchPosts($db);
+        $response = $posts ? ['status' => 'success', 'data' => $posts] : ['status' => 'error', 'message' => 'No posts found'];
+        break;
+    case 'DELETE':
+        if (isset($_GET['id'])) {
+            $response = deleteItem($db, 'tbl_pos', 'id_pos', $_GET['id'])
+                ? ['status' => 'success', 'message' => 'Post deleted successfully']
+                : ['status' => 'error', 'message' => 'Failed to delete post'];
+        }
+        break;
 }
-
-// Mengambil daftar postingan (GET request)
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $posts = getPosts($db);
-
-    if (count($posts) > 0) {
-        echo json_encode([
-            'status' => 'success',
-            'data' => $posts
-        ]);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'No posts found'
-        ]);
-    }
-}
-
-// Menghapus postingan berdasarkan id (DELETE request)
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $result = deletePost($id, $db);
-
-    if ($result) {
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Post deleted successfully'
-        ]);
-    } else {
-        echo json_encode([
-            'status' => 'error',
-            'message' => 'Failed to delete post'
-        ]);
-    }
-}
+//dipakai
+echo json_encode($response);
