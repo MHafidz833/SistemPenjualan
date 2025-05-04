@@ -28,6 +28,5 @@ if ($query->get_result()->num_rows) {
     $status = 'error';
     $message = 'Email tidak terdaftar!';
 }
-
 echo json_encode(['status' => $status, 'message' => $message]);
 ?>

@@ -38,3 +38,4 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 //dipakai
 echo json_encode($response);
+?>

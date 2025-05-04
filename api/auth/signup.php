@@ -6,7 +6,6 @@ header('Content-Type: application/json');
 
 include "../koneksi.php";
 
-// Node 1: Ambil data input
 $nama = $_POST['nama'] ?? '';
 $username = $_POST['username'] ?? '';
 $email = $_POST['email'] ?? '';

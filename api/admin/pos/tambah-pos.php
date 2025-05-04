@@ -18,6 +18,7 @@ function saveBase64Image($base64Image, $uploadDir) {
     return file_put_contents($uploadDir . $fileName, $data) 
         ? ['status' => 'success', 'file_name' => $fileName] 
         : ['status' => 'error', 'message' => 'Gagal menyimpan gambar.'];
+    
 }
 
 function addPost($db, $judul, $isi, $kategori, $gambarFileName) {

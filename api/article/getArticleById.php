@@ -22,3 +22,4 @@ echo json_encode([
 ]);
 //dipakai
 mysqli_close($db);
+?>
