@@ -77,7 +77,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   calculateOngkir(destinationCityId: string) {
-    const origin = '171';
+    const origin = '501';
     const weight = this.cartItems.reduce((total, item) => total + (item.quantity * 200), 0);
     const courier = 'pos';
 

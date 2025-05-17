@@ -62,7 +62,7 @@ export class AdminTambahPosComponent implements OnInit {
 
   submitPost() {
     if (this.postForm.invalid) {
-      alert('Form masih tidak valid!');
+      alert('Form Tidak Boleh Kosong!');
       return;
     }
 
